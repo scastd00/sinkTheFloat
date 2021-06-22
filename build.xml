@@ -115,7 +115,7 @@
 				<batchtest todir="${coverage.result.dir}">
 					<fileset dir="${classes.dir}">
 						<exclude name="**/*$*.class"/>
-						<include name="${package.first.name}/**/*Test.class"/>
+						<include name="src/**/${package.first.name}/**/*Test.class"/>
 					</fileset>
 				</batchtest>
 

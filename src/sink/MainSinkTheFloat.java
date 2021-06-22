@@ -8,6 +8,7 @@ public class MainSinkTheFloat {
 	private static final Logger logger = LogManager.getLogger(MainSinkTheFloat.class);
 
 	public static void main(String[] args) {
-		logger.trace("Hello Sink");
+		Board board = new Board();
+		logger.trace(board);
 	}
 }
