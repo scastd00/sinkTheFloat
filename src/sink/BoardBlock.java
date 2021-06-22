@@ -12,7 +12,7 @@ public class BoardBlock {
 	}
 
 	public BoardBlock() {
-		this(Constants.WATER);
+		this(Constants.NOTHING);
 	}
 
 	@Override
@@ -20,34 +20,38 @@ public class BoardBlock {
 		StringBuilder out = new StringBuilder();
 
 		switch (this.type) {
+			case Constants.NOTHING:
+				out.append(" ·");
+				break;
+
 			case Constants.WATER:
-				out.append(Constants.BLUE + " 0" + Constants.RESET);
+				out.append(Constants.BLUE + " 0");
 				break;
 
 			case Constants.HIT:
-				out.append(Constants.RED + " X" + Constants.RESET);
+				out.append(Constants.RED + " X");
 				break;
 
 			case Constants.AIRCRAFT_CARRIER:
-				out.append(Constants.AIRCRAFT_CARRIER_COLOR + " A" + Constants.RESET);
+				out.append(Constants.AIRCRAFT_CARRIER_COLOR + " A");
 				break;
 
 			case Constants.SUBMARINE:
-				out.append(Constants.SUBMARINE_COLOR + " S" + Constants.RESET);
+				out.append(Constants.SUBMARINE_COLOR + " S");
 				break;
 
 			case Constants.DESTROYER:
-				out.append(Constants.DESTROYER_COLOR + " D" + Constants.RESET);
+				out.append(Constants.DESTROYER_COLOR + " D");
 				break;
 
 			case Constants.FRIGATE:
-				out.append(Constants.FRIGATE_COLOR + " F" + Constants.RESET);
+				out.append(Constants.FRIGATE_COLOR + " F");
 				break;
 
 			default:
 				break;
 		}
 
-		return out.toString();
+		return out.append(Constants.RESET).toString();
 	}
 }

@@ -11,7 +11,7 @@
 \doc
 
 # Log file
-**/*.log
+logs/
 
 # IntelliJ files
 *.iml

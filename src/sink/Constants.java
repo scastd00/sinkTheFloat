@@ -7,6 +7,7 @@ public final class Constants {
 
 	public static final int HASH_MAGIC = 0xb89f12;
 
+	public static final int NOTHING = -1;
 	public static final int WATER = 0;
 	public static final int HIT = 1;
 
@@ -14,6 +15,7 @@ public final class Constants {
 	public static final int SUBMARINE = 3;
 	public static final int DESTROYER = 4;
 	public static final int FRIGATE = 5;
+	public static final int NO_BOAT = 6;
 
 	public static final int MAX_SIZE = 20;
 	public static final int MIN_SIZE = 4;

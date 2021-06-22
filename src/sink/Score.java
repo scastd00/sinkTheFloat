@@ -13,6 +13,11 @@ public class Score {
 		this.sankBoats = sankBoats;
 	}
 
+	public Score() {
+		this.points = 0;
+		this.sankBoats = 0;
+	}
+
 	public int getPoints() {
 		return this.points;
 	}

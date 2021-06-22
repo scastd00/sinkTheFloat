@@ -6,18 +6,34 @@ import java.util.List;
 public class Board {
 	private BoardBlock[][] blocks;
 	private ArrayList<Boat> boats;
+	private final int size;
 
+	/**
+	 * Creates a board with the specified table and boats.
+	 *
+	 * @param blocks blocks of the board.
+	 * @param boats  boat list of the board.
+	 */
 	public Board(BoardBlock[][] blocks, List<Boat> boats) {
 		this.setBlocks(blocks);
 		this.setBoats(boats);
+		this.size = blocks.length;
 	}
 
-	public Board() {
-		this.blocks = new BoardBlock[12][12];
+	/**
+	 * Creates an empty board.
+	 *
+	 * @param size size of the board.
+	 * @param type
+	 */
+	public Board(int size, int type) {
+		this.size = size;
+		this.blocks = new BoardBlock[size][size];
+		this.boats = new ArrayList<>();
 
-		for (int i = 0; i < this.blocks[0].length; i++) {
-			for (int j = 0; j < this.blocks.length; j++) {
-				this.blocks[i][j] = new BoardBlock();
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				this.blocks[i][j] = new BoardBlock(type);
 			}
 		}
 	}
@@ -44,6 +60,10 @@ public class Board {
 		}
 
 		this.boats = (ArrayList<Boat>) boats;
+	}
+
+	public int getSize() {
+		return this.size;
 	}
 
 	private void setBoatsInBoard() {

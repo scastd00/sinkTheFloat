@@ -9,17 +9,20 @@ public class Player {
 	private String name;
 	private Score score;
 	private Board board;
+	private Board attemptingBoard;
 
 	public Player(String name, Score score, Board board) throws SinkException {
 		this.setName(name);
 		this.setScore(score);
 		this.setBoard(board);
+		this.attemptingBoard = new Board(board.getSize(), Constants.NOTHING);
 	}
 
 	public Player() {
 		this.name = null;
 		this.score = null;
 		this.board = null;
+		this.attemptingBoard = null;
 	}
 
 	public String getName() {
@@ -60,6 +63,11 @@ public class Player {
 		}
 
 		this.board = board;
+		this.attemptingBoard = new Board(board.getSize(), Constants.NOTHING);
+	}
+
+	public Board getAttemptingBoard() {
+		return this.attemptingBoard;
 	}
 
 	@Override
@@ -78,6 +86,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Name: " + this.name + " Score: " + this.score.toString() + "\n";
+		return "Name: " + this.name + " Score: " + this.score.toString() + "\n\n" + this.board.toString() +
+			"\n\n" + this.attemptingBoard.toString();
 	}
 }

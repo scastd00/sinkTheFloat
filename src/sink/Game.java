@@ -6,16 +6,16 @@ import org.apache.logging.log4j.Logger;
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 	private Player[] players;
-	private Time time;
+	private SinkTime sinkTime;
 
-	public Game(Player[] players, Time time) {
+	public Game(Player[] players, SinkTime sinkTime) {
 		this.players = players;
-		this.time = time;
+		this.sinkTime = sinkTime;
 	}
 
 	public Game() {
 		this.players = null;
-		this.time = null;
+		this.sinkTime = null;
 	}
 
 	public Player[] getPlayers() {
@@ -34,11 +34,16 @@ public class Game {
 		this.players = players;
 	}
 
-	public Time getTime() {
-		return this.time;
+	public SinkTime getTime() {
+		return this.sinkTime;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	public void setTime(SinkTime sinkTime) {
+		this.sinkTime = sinkTime;
+	}
+
+	@Override
+	public String toString() {
+		return this.players[0].toString() + "\n\n\n\n\n" + this.players[1].toString();
 	}
 }
