@@ -2,7 +2,7 @@
 
 Samuel
 
-0 4 r
-2 4 u
-4 5 d
-7 6 l
+1 D r
+2 D u
+4 E d
+7 F l

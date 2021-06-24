@@ -63,26 +63,27 @@ public class TextUI {
 
 	private List<Boat> createBoats(int playerNumber, int boardSize) throws SinkException {
 		logger.info("Player {} insert the coordinates and direction of the boats", playerNumber);
-
+		logger.info("Structure of the input: Row: 1 - {}  Column: A - {}  Direction: {U D L R}",
+			boardSize, (char) ('A' + boardSize - 1));
 		List<Boat> boatList = new ArrayList<>(10);
 
 		logger.info("Player {} insert the head coordinates and direction of the aircraft carrier", playerNumber);
 		boatList.add(parseBoat(Keyboard.read().trim(), Constants.AIRCRAFT_CARRIER_SIZE, Constants.AIRCRAFT_CARRIER));
 
 		logger.info("Player {} insert the head coordinates and direction of the 3 submarines", playerNumber);
-//		for (int i = 0; i < 3; i++) {
-		boatList.add(parseBoat(Keyboard.read().trim(), Constants.SUBMARINE_SIZE, Constants.SUBMARINE));
-//		}
-//
+		for (int i = 0; i < 3; i++) {
+			boatList.add(parseBoat(Keyboard.read().trim(), Constants.SUBMARINE_SIZE, Constants.SUBMARINE));
+		}
+
 		logger.info("Player {} insert the head coordinates and direction of the 3 destroyers", playerNumber);
-//		for (int i = 0; i < 3; i++) {
-		boatList.add(parseBoat(Keyboard.read().trim(), Constants.DESTROYER_SIZE, Constants.DESTROYER));
-//		}
-//
+		for (int i = 0; i < 3; i++) {
+			boatList.add(parseBoat(Keyboard.read().trim(), Constants.DESTROYER_SIZE, Constants.DESTROYER));
+		}
+
 		logger.info("Player {} insert the head coordinates and direction of the 2 frigates", playerNumber);
-//		for (int i = 0; i < 2; i++) {
-		boatList.add(parseBoat(Keyboard.read().trim(), Constants.FRIGATE_SIZE, Constants.FRIGATE));
-//		}
+		for (int i = 0; i < 2; i++) {
+			boatList.add(parseBoat(Keyboard.read().trim(), Constants.FRIGATE_SIZE, Constants.FRIGATE));
+		}
 
 		for (Boat boat : boatList) {
 			if (!isValidBoat(boat, boardSize)) {
@@ -95,8 +96,8 @@ public class TextUI {
 
 	private Boat parseBoat(String s, int boatSize, int type) {
 		String[] tokens = s.toUpperCase().split(" ");
-		int row = Integer.parseInt(tokens[0]);
-		int column = Integer.parseInt(tokens[1]);
+		int row = Integer.parseInt(tokens[0]) - 1;
+		int column = tokens[1].charAt(0) - 'A';
 		int[] dir = this.getDirectionVectorFromString(tokens[2]);
 
 		return new Boat(type, row, column, boatSize, dir);
@@ -119,8 +120,8 @@ public class TextUI {
 
 	private boolean isValidBoat(Boat boat, int boardSize) {
 		int[] dir = boat.getDirection();
-		int columnVector = dir[0] * boat.getSize();
-		int rowVector = dir[1] * boat.getSize();
+		int columnVector = dir[0] * boat.getSize() - 1;
+		int rowVector = dir[1] * boat.getSize() - 1;
 
 		return (boat.getRow() - rowVector) >= 0 &&
 			(boat.getRow() - rowVector) <= boardSize &&

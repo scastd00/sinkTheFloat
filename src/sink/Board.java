@@ -94,15 +94,16 @@ public class Board {
 		out.append("\n");
 
 		for (int i = 0; i < this.blocks.length; i++) {
-			if (i < 10) {
+			if (i + 1 < 10) {
 				out.append(" ");
 			}
 
-			out.append(i).append("|");
+			out.append(i + 1).append("|");
 
 			for (int j = 0; j < this.blocks[i].length; j++) {
 				out.append(this.blocks[i][j].toString());
 			}
+
 			out.append("\n");
 		}
 
