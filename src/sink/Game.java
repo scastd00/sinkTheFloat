@@ -44,6 +44,6 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return this.players[0].toString() + "\n\n\n\n\n" /*+ this.players[1].toString()*/;
+		return this.players[0].toString() + "\n\n\n\n\n" + this.players[1].toString();
 	}
 }

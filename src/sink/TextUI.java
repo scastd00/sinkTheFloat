@@ -16,7 +16,7 @@ public class TextUI {
 
 	public TextUI(int boardSize) {
 		this.game = new Game(
-			new Player[] {this.createPlayer(1, boardSize), null/*this.createPlayer(2, boardSize)*/},
+			new Player[] {SinkIO.createPlayer(1, boardSize), SinkIO.createPlayer(2, boardSize)},
 			new SinkTime(0, 0)
 		);
 	}
@@ -27,106 +27,6 @@ public class TextUI {
 
 	public void setGame(Game game) {
 		this.game = game;
-	}
-
-	private Player createPlayer(int playerNumber, int boardSize) {
-		logger.debug("Creating player {}", playerNumber);
-		logger.trace("Introduce the name of the player {}", playerNumber);
-
-		Player player = new Player();
-
-		try {
-			player.setName(Keyboard.read().trim());
-			player.setScore(createScore(playerNumber));
-			player.setBoard(createBoard(playerNumber, boardSize));
-		} catch (SinkException e) {
-			logger.warn(e.getMessage());
-		}
-
-		return player;
-	}
-
-	private Score createScore(int playerNumber) {
-		logger.debug("Creating initial score for player {}", playerNumber);
-
-		return new Score();
-	}
-
-	private Board createBoard(int playerNumber, int boardSize) throws SinkException {
-		logger.debug("Creating board for player {}", playerNumber);
-
-		Board board = new Board(boardSize, Constants.WATER);
-		board.setBoats(createBoats(playerNumber, boardSize));
-
-		return board;
-	}
-
-	private List<Boat> createBoats(int playerNumber, int boardSize) throws SinkException {
-		logger.info("Player {} insert the coordinates and direction of the boats", playerNumber);
-		logger.info("Structure of the input: Row: 1 - {}  Column: A - {}  Direction: {U D L R}",
-			boardSize, (char) ('A' + boardSize - 1));
-		List<Boat> boatList = new ArrayList<>(10);
-
-		logger.info("Player {} insert the head coordinates and direction of the aircraft carrier", playerNumber);
-		boatList.add(parseBoat(Keyboard.read().trim(), Constants.AIRCRAFT_CARRIER_SIZE, Constants.AIRCRAFT_CARRIER));
-
-		logger.info("Player {} insert the head coordinates and direction of the 3 submarines", playerNumber);
-		for (int i = 0; i < 3; i++) {
-			boatList.add(parseBoat(Keyboard.read().trim(), Constants.SUBMARINE_SIZE, Constants.SUBMARINE));
-		}
-
-		logger.info("Player {} insert the head coordinates and direction of the 3 destroyers", playerNumber);
-		for (int i = 0; i < 3; i++) {
-			boatList.add(parseBoat(Keyboard.read().trim(), Constants.DESTROYER_SIZE, Constants.DESTROYER));
-		}
-
-		logger.info("Player {} insert the head coordinates and direction of the 2 frigates", playerNumber);
-		for (int i = 0; i < 2; i++) {
-			boatList.add(parseBoat(Keyboard.read().trim(), Constants.FRIGATE_SIZE, Constants.FRIGATE));
-		}
-
-		for (Boat boat : boatList) {
-			if (!isValidBoat(boat, boardSize)) {
-				throw new SinkException("An error occurred while creating boats");
-			}
-		}
-
-		return boatList;
-	}
-
-	private Boat parseBoat(String s, int boatSize, int type) {
-		String[] tokens = s.toUpperCase().split(" ");
-		int row = Integer.parseInt(tokens[0]) - 1;
-		int column = tokens[1].charAt(0) - 'A';
-		int[] dir = this.getDirectionVectorFromString(tokens[2]);
-
-		return new Boat(type, row, column, boatSize, dir);
-	}
-
-	private int[] getDirectionVectorFromString(String direction) {
-		switch (direction) {
-			case "U":
-				return Constants.DIR_UP;
-			case "D":
-				return Constants.DIR_DOWN;
-			case "R":
-				return Constants.DIR_RIGHT;
-			case "L":
-				return Constants.DIR_LEFT;
-			default:
-				return new int[0];
-		}
-	}
-
-	private boolean isValidBoat(Boat boat, int boardSize) {
-		int[] dir = boat.getDirection();
-		int columnVector = dir[0] * boat.getSize() - 1;
-		int rowVector = dir[1] * boat.getSize() - 1;
-
-		return (boat.getRow() - rowVector) >= 0 &&
-			(boat.getRow() - rowVector) <= boardSize &&
-			(boat.getColumn() - columnVector) >= 0 &&
-			(boat.getColumn() - columnVector) <= boardSize;
 	}
 
 	public String printBoard() {

@@ -1,0 +1,21 @@
+12
+SamuelCastrillo
+1 a u
+1 e r
+2 e r
+1 h l
+6 b d
+4 f u
+7 j d
+10 d u
+9 h d
+ManuelFernandez
+1 a u
+1 e r
+2 e r
+1 h l
+6 b d
+4 f u
+7 j d
+10 d u
+9 h d
