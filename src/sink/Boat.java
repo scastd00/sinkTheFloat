@@ -24,12 +24,15 @@ public class Boat {
 		this(Constants.NO_BOAT, 0, 0, 0, Constants.NO_DIR);
 	}
 
-	// Todo: hacer condiciones en los setters
 	public int getType() {
 		return this.type;
 	}
 
 	public void setType(int type) {
+		if (type < Constants.AIRCRAFT_CARRIER || type > Constants.NO_BOAT) {
+			throw new IllegalArgumentException("Bad boat type");
+		}
+
 		this.type = type;
 	}
 

@@ -21,6 +21,16 @@ public final class Constants {
 	public static final int FRIGATE_SIZE = 1;
 	public static final int NO_BOAT = 6;
 
+	private static int boardSize;
+
+	public static int getBoardSize() {
+		return boardSize;
+	}
+
+	public static void setBoardSize(int boardSize) {
+		Constants.boardSize = boardSize;
+	}
+
 	public static final int MAX_SIZE = 20;
 	public static final int MIN_SIZE = 4;
 
@@ -28,10 +38,10 @@ public final class Constants {
 	public static final String RED = "\u001B[41m";
 	public static final String RESET = "\u001B[0m";
 
-	public static final String AIRCRAFT_CARRIER_COLOR = "\u001B[42m";
-	public static final String SUBMARINE_COLOR = "\u001B[43m";
-	public static final String DESTROYER_COLOR = "\u001B[45m";
-	public static final String FRIGATE_COLOR = "\u001B[47m";
+	public static final String AIRCRAFT_CARRIER_COLOR = "\u001B[42m\u001B[30m";
+	public static final String SUBMARINE_COLOR = "\u001B[43m\u001B[30m";
+	public static final String DESTROYER_COLOR = "\u001B[45m\u001B[30m";
+	public static final String FRIGATE_COLOR = "\u001B[47m\u001B[30m";
 
 	/**
 	 * Direction that each boat follows  {column, row}

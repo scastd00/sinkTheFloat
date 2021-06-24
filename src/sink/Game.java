@@ -22,13 +22,13 @@ public class Game {
 		return this.players;
 	}
 
-	public void setPlayers(Player[] players) throws NullPointerException {
+	public void setPlayers(Player[] players) throws SinkException {
 		if (players == null) {
-			throw new NullPointerException("Players cannot be null");
+			throw new SinkException("Players cannot be null");
 		}
 
 		if (players[0] == null || players[1] == null) {
-			throw new NullPointerException("Players cannot be null");
+			throw new SinkException("Players cannot be null");
 		}
 
 		this.players = players;
@@ -44,6 +44,6 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return this.players[0].toString() + "\n\n\n\n\n" + this.players[1].toString();
+		return this.players[0].toString() + "\n\n\n\n\n" /*+ this.players[1].toString()*/;
 	}
 }

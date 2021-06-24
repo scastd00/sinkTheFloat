@@ -14,7 +14,7 @@ public class Board {
 	 * @param blocks blocks of the board.
 	 * @param boats  boat list of the board.
 	 */
-	public Board(BoardBlock[][] blocks, List<Boat> boats) {
+	public Board(BoardBlock[][] blocks, List<Boat> boats) throws SinkException {
 		this.setBlocks(blocks);
 		this.setBoats(boats);
 		this.size = blocks.length;
@@ -38,9 +38,9 @@ public class Board {
 		return this.blocks;
 	}
 
-	public void setBlocks(BoardBlock[][] blocks) throws NullPointerException {
+	public void setBlocks(BoardBlock[][] blocks) throws SinkException {
 		if (blocks == null) {
-			throw new NullPointerException("Null table");
+			throw new SinkException("Null table");
 		}
 
 		this.blocks = blocks;
@@ -50,9 +50,9 @@ public class Board {
 		return this.boats;
 	}
 
-	public void setBoats(List<Boat> boats) throws NullPointerException {
+	public void setBoats(List<Boat> boats) throws SinkException {
 		if (boats == null) {
-			throw new NullPointerException("Cannot set null list of boats");
+			throw new SinkException("Cannot set null list of boats");
 		}
 
 		this.boats = (ArrayList<Boat>) boats;
@@ -71,10 +71,15 @@ public class Board {
 		}
 	}
 
-	// Todo: colocar los barcos recorriendo y poniendo los bloques del tablero del tipo del barco
 	private void setBoatsInBoard() {
-		for (Boat boat : this.boats) {
+		int row, column;
 
+		for (Boat boat : this.boats) {
+			for (int i = 0; i < boat.getSize(); i++) {
+				row = boat.getRow() - i * boat.getDirection()[1];
+				column = boat.getColumn() - i * boat.getDirection()[0];
+				this.blocks[row][column] = new BoardBlock(boat.getType());
+			}
 		}
 	}
 

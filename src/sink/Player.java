@@ -29,9 +29,9 @@ public class Player {
 		return this.name;
 	}
 
-	public void setName(String name) throws SinkException, NullPointerException {
+	public void setName(String name) throws SinkException {
 		if (name == null) {
-			throw new NullPointerException("Cannot set a null name");
+			throw new SinkException("Cannot set a null name");
 		}
 
 		if (name.trim().length() == 0) {
@@ -45,9 +45,9 @@ public class Player {
 		return this.score;
 	}
 
-	public void setScore(Score score) throws NullPointerException {
+	public void setScore(Score score) throws SinkException {
 		if (score == null) {
-			throw new NullPointerException("Cannot set a null score");
+			throw new SinkException("Cannot set a null score");
 		}
 
 		this.score = score;
@@ -57,9 +57,9 @@ public class Player {
 		return this.board;
 	}
 
-	public void setBoard(Board board) throws NullPointerException {
+	public void setBoard(Board board) throws SinkException {
 		if (board == null) {
-			throw new NullPointerException("Cannot set a null board");
+			throw new SinkException("Cannot set a null board");
 		}
 
 		this.board = board;
