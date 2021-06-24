@@ -15,6 +15,10 @@ public class BoardBlock {
 		this(Constants.NOTHING);
 	}
 
+	public int getType() {
+		return this.type;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();

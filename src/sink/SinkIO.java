@@ -20,16 +20,25 @@ public final class SinkIO {
 	}
 
 	public static Game createGameFromFile(@NotNull String filename) throws SinkException {
-		File file = new File(filename);
-		Game game;
+		return parseInput(new File(filename));
+	}
 
-		try {
-			game = parseInput(new BufferedReader(new InputStreamReader(new FileInputStream(file))));
-		} catch (FileNotFoundException e) {
-			throw new SinkException("File not found");
+	public static void writeGameToFile(@NotNull Game game, String filename) throws SinkException {
+		File file = new File(filename);
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+			writer.write(Integer.toString(game.getPlayers()[0].getBoard().getSize()));
+			writer.newLine();
+			writer.write(game.getPlayers()[0].getName());
+			writer.newLine();
+			writer.write(getBoatsFormatted(game.getPlayers()[0].getBoard().getBoats()));
+			writer.newLine();
+			writer.write(game.getPlayers()[1].getName());
+			writer.newLine();
+			writer.write(getBoatsFormatted(game.getPlayers()[1].getBoard().getBoats()));
+		} catch (IOException e) {
+			throw new SinkException("Could not write in the file correctly");
 		}
 
-		return game;
 	}
 
 	public static Player createPlayer(int playerNumber, int boardSize) {
@@ -127,10 +136,10 @@ public final class SinkIO {
 			(boat.getColumn() - columnVector) <= boardSize;
 	}
 
-	private static Game parseInput(BufferedReader reader) throws SinkException {
+	private static Game parseInput(File file) throws SinkException {
 		Game game = new Game();
 
-		try {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
 			int boardSize = Integer.parseInt(reader.readLine());
 			Player[] players = new Player[2];
 
@@ -160,5 +169,20 @@ public final class SinkIO {
 		}
 
 		return game;
+	}
+
+	private static String getBoatsFormatted(List<Boat> boats) {
+		StringBuilder out = new StringBuilder();
+
+		for (Boat boat : boats) {
+			out.append(boat.getRow() + 1).append(" ")
+			   .append((char) (boat.getColumn() + 'A')).append(" ")
+			   .append(boat.getDirectionStringFromVector(boat.getDirection()))
+			   .append("\n");
+		}
+
+		out.replace(out.length() - 1, out.length(), ""); // Removing the last \n of the output String
+
+		return out.toString();
 	}
 }

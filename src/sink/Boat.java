@@ -2,6 +2,9 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 public class Boat {
 	private static final Logger logger = LogManager.getLogger(Boat.class);
@@ -66,5 +69,17 @@ public class Boat {
 
 	public void setDirection(int[] direction) {
 		this.direction = direction;
+	}
+
+	public @NotNull String getDirectionStringFromVector(int[] direction) {
+		if (Arrays.equals(direction, Constants.DIR_UP)) {
+			return "U";
+		} else if (Arrays.equals(direction, Constants.DIR_DOWN)) {
+			return "D";
+		} else if (Arrays.equals(direction, Constants.DIR_LEFT)) {
+			return "L";
+		}
+
+		return "R"; // The boat always has a direction
 	}
 }

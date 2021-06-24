@@ -14,8 +14,13 @@ public class MainSinkTheFloat {
 //			TextUI ui = new TextUI(Constants.getBoardSize());
 //			ui.start();
 
-			new TextUI(SinkIO.createGameFromFile(
-				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/io1.txt")).start();
+			Game game = SinkIO.createGameFromFile(
+				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");
+
+			new TextUI(game).start();
+
+			SinkIO.writeGameToFile(game,
+				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");
 
 		} catch (SinkException e) {
 			logger.error(e.getMessage());

@@ -71,13 +71,18 @@ public class Board {
 		}
 	}
 
-	private void setBoatsInBoard() {
+	private void setBoatsInBoard() throws SinkException {
 		int row, column;
 
 		for (Boat boat : this.boats) {
 			for (int i = 0; i < boat.getSize(); i++) {
 				row = boat.getRow() - i * boat.getDirection()[1];
 				column = boat.getColumn() - i * boat.getDirection()[0];
+
+				if (this.blocks[row][column].getType() != Constants.WATER) {
+					throw new SinkException("Boat collision while putting them on the board");
+				}
+
 				this.blocks[row][column] = new BoardBlock(boat.getType());
 			}
 		}
