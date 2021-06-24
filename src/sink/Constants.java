@@ -12,9 +12,13 @@ public final class Constants {
 	public static final int HIT = 1;
 
 	public static final int AIRCRAFT_CARRIER = 2;
+	public static final int AIRCRAFT_CARRIER_SIZE = 4;
 	public static final int SUBMARINE = 3;
+	public static final int SUBMARINE_SIZE = 3;
 	public static final int DESTROYER = 4;
+	public static final int DESTROYER_SIZE = 2;
 	public static final int FRIGATE = 5;
+	public static final int FRIGATE_SIZE = 1;
 	public static final int NO_BOAT = 6;
 
 	public static final int MAX_SIZE = 20;
@@ -28,4 +32,13 @@ public final class Constants {
 	public static final String SUBMARINE_COLOR = "\u001B[43m";
 	public static final String DESTROYER_COLOR = "\u001B[45m";
 	public static final String FRIGATE_COLOR = "\u001B[47m";
+
+	/**
+	 * Direction that each boat follows  {column, row}
+	 */
+	public static final int[] NO_DIR = {0, 0};
+	public static final int[] DIR_UP = {0, -1}; // To negative coordinates
+	public static final int[] DIR_DOWN = {0, 1}; // Array increments
+	public static final int[] DIR_RIGHT = {1, 0};
+	public static final int[] DIR_LEFT = {-1, 0};
 }

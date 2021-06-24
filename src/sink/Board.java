@@ -24,18 +24,14 @@ public class Board {
 	 * Creates an empty board.
 	 *
 	 * @param size size of the board.
-	 * @param type
+	 * @param type creates the board with the blocks filled with colors or not.
 	 */
 	public Board(int size, int type) {
 		this.size = size;
 		this.blocks = new BoardBlock[size][size];
 		this.boats = new ArrayList<>();
 
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				this.blocks[i][j] = new BoardBlock(type);
-			}
-		}
+		this.fillBoard(type);
 	}
 
 	public BoardBlock[][] getBlocks() {
@@ -60,12 +56,22 @@ public class Board {
 		}
 
 		this.boats = (ArrayList<Boat>) boats;
+		this.setBoatsInBoard();
 	}
 
 	public int getSize() {
 		return this.size;
 	}
 
+	private void fillBoard(int type) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				this.blocks[i][j] = new BoardBlock(type);
+			}
+		}
+	}
+
+	// Todo: colocar los barcos recorriendo y poniendo los bloques del tablero del tipo del barco
 	private void setBoatsInBoard() {
 		for (Boat boat : this.boats) {
 

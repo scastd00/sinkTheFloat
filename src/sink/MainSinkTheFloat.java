@@ -10,13 +10,7 @@ public class MainSinkTheFloat {
 	public static void main(String[] args) {
 		try {
 			logger.trace("Board size for the game? Enter a number: ");
-			final int boardSize = Integer.parseInt(Keyboard.read());
-
-			Player player1 = TextUI.createPlayer(1, boardSize);
-			Player player2 = TextUI.createPlayer(2, boardSize);
-
-			Game game = new Game(new Player[] {player1, player2}, new SinkTime(0, 0));
-			TextUI ui = new TextUI(game);
+			TextUI ui = new TextUI(Integer.parseInt(Keyboard.read()));
 			ui.start();
 		} catch (SinkException e) {
 			logger.error(e.getMessage());
