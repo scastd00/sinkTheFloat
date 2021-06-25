@@ -86,7 +86,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Name: " + this.name + "  Score: " + this.score.toString() + "\n\n" + this.board.toString() +
+		return "Name: " + this.name + "  " + this.score.toString() + "\n\n" + this.board.toString() +
 			"\n\n" + this.attemptingBoard.toString();
 	}
 }

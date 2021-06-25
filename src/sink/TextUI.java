@@ -4,9 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TextUI {
 	private static final Logger logger = LogManager.getLogger(TextUI.class);
 	private Game game;
@@ -18,7 +15,7 @@ public class TextUI {
 	public TextUI(int boardSize) {
 		this.game = new Game(
 			new Player[] {SinkIO.createPlayer(1, boardSize), SinkIO.createPlayer(2, boardSize)},
-			new SinkTime(0, 0)
+			new SinkTime()
 		);
 	}
 
