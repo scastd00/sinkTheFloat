@@ -64,8 +64,8 @@ public class Score {
 
 	@Override
 	public String toString() {
-		return "Score: " + this.points +
-			" points  Multiplier: x" + this.multiplier +
-			"  Streak: " + this.streak;
+		return "|  Score: " + this.points +
+			" points  |  Multiplier: x" + this.multiplier +
+			"  |  Streak: " + this.streak + "  |";
 	}
 }

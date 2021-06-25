@@ -190,6 +190,21 @@
 		</java>
 	</target>
 
+	<!-- Executes the code without compiling all the project files -->
+	<target name="executeQuick">
+		<!-- Fork = true, for executing the Swing Window -->
+		<java classname="${package}.Main${projectName}" fork="true">
+			<classpath>
+				<!-- Where to search the src files-->
+				<pathelement path="${classes.dir}"/>
+				<pathelement path="${conf.dir}"/>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
 	<!-- Builds the directory structure used for Jenkins and SonarQube -->
 	<target name="sonarqube" depends="report">
 		<mkdir dir="${sonar.srcClass}"/>
