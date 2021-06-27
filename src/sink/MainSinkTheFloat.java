@@ -19,7 +19,8 @@ public class MainSinkTheFloat {
 
 			game.setTime(new SinkTime());
 
-			new UI(game).start();
+			UI ui = new UI(game);
+			ui.start();
 
 			SinkIO.writeGameToFile(game,
 				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");
