@@ -19,7 +19,7 @@ public class MainSinkTheFloat {
 
 			game.setTime(new SinkTime());
 
-			new TextUI(game).start();
+			new UI(game).start();
 
 			SinkIO.writeGameToFile(game,
 				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");

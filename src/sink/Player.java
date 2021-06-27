@@ -89,4 +89,8 @@ public class Player {
 		return "Name: " + this.name + "  " + this.score.toString() + "\n\n" + this.board.toString() +
 			"\n\n" + this.attemptingBoard.toString();
 	}
+
+	public boolean isPossibleToPlay() {
+		return this.board.isPossibleToPlay();
+	}
 }

@@ -1,11 +1,15 @@
 package sink;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Constants {
 	private Constants() {
 		throw new UnsupportedOperationException("Constants class");
 	}
 
 	public static final int HASH_MAGIC = 0xb89f12;
+	public static final int DEFAULT_SCORE = 100;
 
 	public static final int NOTHING = -1;
 	public static final int WATER = 0;
@@ -46,9 +50,18 @@ public final class Constants {
 	/**
 	 * Direction that each boat follows  {column, row}
 	 */
-	public static final int[] NO_DIR = {0, 0};
-	public static final int[] DIR_UP = {0, -1}; // To negative coordinates
-	public static final int[] DIR_DOWN = {0, 1}; // Array increments
-	public static final int[] DIR_RIGHT = {1, 0};
-	public static final int[] DIR_LEFT = {-1, 0};
+	protected static final int[] NO_DIR = {0, 0};
+	protected static final int[] DIR_UP = {0, -1}; // To negative coordinates
+	protected static final int[] DIR_DOWN = {0, 1}; // Array increments
+	protected static final int[] DIR_RIGHT = {1, 0};
+	protected static final int[] DIR_LEFT = {-1, 0};
+
+	protected static final Map<String, int[]> DIRECTIONS = new HashMap<>();
+
+	static {
+		DIRECTIONS.put("U", DIR_UP);
+		DIRECTIONS.put("D", DIR_DOWN);
+		DIRECTIONS.put("R", DIR_RIGHT);
+		DIRECTIONS.put("L", DIR_LEFT);
+	}
 }

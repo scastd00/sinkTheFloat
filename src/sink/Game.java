@@ -8,9 +8,9 @@ public class Game {
 	private Player[] players;
 	private SinkTime sinkTime;
 
-	public Game(Player[] players, SinkTime sinkTime) {
-		this.players = players;
-		this.sinkTime = sinkTime;
+	public Game(Player[] players, SinkTime sinkTime) throws SinkException {
+		this.setPlayers(players);
+		this.setTime(sinkTime);
 	}
 
 	public Game() {
@@ -32,6 +32,7 @@ public class Game {
 		}
 
 		this.players = players;
+		Constants.setBoardSize(this.players[0].getBoard().getSize());
 	}
 
 	public SinkTime getTime() {
@@ -42,9 +43,34 @@ public class Game {
 		this.sinkTime = sinkTime;
 	}
 
+	public void shoot(int player, int row, int column) throws SinkException {
+		if (outOfBoundsPosition(row) || outOfBoundsPosition(column)) {
+			throw new SinkException("Position shot out of bounds");
+		}
+
+		// Take the other player's board to see if there is a boat or not
+		BoardBlock block = this.players[(player + 1) % 2].getBoard().getBlocks()[row][column];
+
+		if (block.getType() == Constants.WATER) {
+			this.players[player].getAttemptingBoard().getBlocks()[row][column].water();
+			this.players[player].getScore().reset();
+		} else {
+			this.players[player].getAttemptingBoard().getBlocks()[row][column].hit();
+			this.players[player].getScore().increment(Constants.DEFAULT_SCORE);
+			block.hit();
+		}
+	}
+
+	public boolean isPossibleToPlay() {
+		return this.players[0].isPossibleToPlay() && this.players[1].isPossibleToPlay();
+	}
+
+	private boolean outOfBoundsPosition(int value) {
+		return value < 0 || value > Constants.getBoardSize();
+	}
+
 	@Override
 	public String toString() {
-		return "Starting time: " + this.sinkTime.toString() + "\n\n\n" + this.players[0].toString() +
-			"\n\n\n\n\n" + this.players[1].toString();
+		return this.players[0].toString() + "\n\n\n" + this.players[1].toString();
 	}
 }

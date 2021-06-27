@@ -6,6 +6,10 @@ import java.util.List;
 public class Board {
 	private BoardBlock[][] blocks;
 	private ArrayList<Boat> boats;
+
+	/**
+	 * Fixed size of the boards during the game.
+	 */
 	private final int size;
 
 	/**
@@ -18,6 +22,7 @@ public class Board {
 		this.setBlocks(blocks);
 		this.setBoats(boats);
 		this.size = blocks.length;
+		Constants.setBoardSize(this.size);
 	}
 
 	/**
@@ -32,6 +37,7 @@ public class Board {
 		this.boats = new ArrayList<>();
 
 		this.fillBoard(type);
+		Constants.setBoardSize(this.size);
 	}
 
 	public BoardBlock[][] getBlocks() {
@@ -113,5 +119,9 @@ public class Board {
 		}
 
 		return out.toString();
+	}
+
+	public boolean isPossibleToPlay() {
+		return !this.boats.isEmpty();
 	}
 }

@@ -111,18 +111,7 @@ public final class SinkIO {
 	}
 
 	private static int[] getDirectionVectorFromString(String direction) {
-		switch (direction) {
-			case "U":
-				return Constants.DIR_UP;
-			case "D":
-				return Constants.DIR_DOWN;
-			case "R":
-				return Constants.DIR_RIGHT;
-			case "L":
-				return Constants.DIR_LEFT;
-			default:
-				return new int[0];
-		}
+		return Constants.DIRECTIONS.containsKey(direction) ? Constants.DIRECTIONS.get(direction) : new int[0];
 	}
 
 	private static boolean isValidBoat(Boat boat, int boardSize) {

@@ -62,6 +62,11 @@ public class Score {
 		this.multiplier += 1.25;
 	}
 
+	public void reset() {
+		this.streak = 0;
+		this.multiplier = 1;
+	}
+
 	@Override
 	public String toString() {
 		return "|  Score: " + this.points +

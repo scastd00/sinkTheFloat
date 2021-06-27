@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class BoardBlock {
 	private static final Logger logger = LogManager.getLogger(BoardBlock.class);
-	private final int type;
+	private int type;
 
 	public BoardBlock(int type) {
 		this.type = type;
@@ -19,6 +19,10 @@ public class BoardBlock {
 		return this.type;
 	}
 
+	public void setType(int type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
@@ -29,27 +33,27 @@ public class BoardBlock {
 				break;
 
 			case Constants.WATER:
-				out.append(Constants.BLUE + " 0");
+				out.append(Constants.BLUE + " ·");
 				break;
 
 			case Constants.HIT:
-				out.append(Constants.RED + " X");
+				out.append(Constants.RED + " ·");
 				break;
 
 			case Constants.AIRCRAFT_CARRIER:
-				out.append(Constants.AIRCRAFT_CARRIER_COLOR + " A");
+				out.append(Constants.AIRCRAFT_CARRIER_COLOR + " ·");
 				break;
 
 			case Constants.SUBMARINE:
-				out.append(Constants.SUBMARINE_COLOR + " S");
+				out.append(Constants.SUBMARINE_COLOR + " ·");
 				break;
 
 			case Constants.DESTROYER:
-				out.append(Constants.DESTROYER_COLOR + " D");
+				out.append(Constants.DESTROYER_COLOR + " ·");
 				break;
 
 			case Constants.FRIGATE:
-				out.append(Constants.FRIGATE_COLOR + " F");
+				out.append(Constants.FRIGATE_COLOR + " ·");
 				break;
 
 			default:
@@ -57,5 +61,13 @@ public class BoardBlock {
 		}
 
 		return out.append(Constants.RESET).toString();
+	}
+
+	public void hit() {
+		this.type = Constants.HIT;
+	}
+
+	public void water() {
+		this.type = Constants.WATER;
 	}
 }
