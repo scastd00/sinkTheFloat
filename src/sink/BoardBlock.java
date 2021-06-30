@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class BoardBlock {
 	private static final Logger logger = LogManager.getLogger(BoardBlock.class);
 	private int type;
+	private int boatNumber = 0;
 
 	public BoardBlock(int type) {
 		this.type = type;
@@ -21,6 +22,14 @@ public class BoardBlock {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public int getBoatNumber() {
+		return this.boatNumber;
+	}
+
+	public void setBoatNumber(int boatNumber) {
+		this.boatNumber = boatNumber;
 	}
 
 	@Override

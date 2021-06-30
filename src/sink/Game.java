@@ -3,6 +3,8 @@ package sink;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 	private Player[] players;
@@ -56,6 +58,10 @@ public class Game {
 			this.players[player].getScore().reset();
 		} else {
 			this.players[player].getAttemptingBoard().getBlocks()[row][column].hit();
+			this.players[(player + 1) % 2].getBoard()
+			                              .getBoats()
+			                              .get(block.getBoatNumber())
+			                              .hit(row, column);
 			this.players[player].getScore().increment(Constants.DEFAULT_SCORE);
 			block.hit();
 		}

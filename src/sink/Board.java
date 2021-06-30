@@ -78,18 +78,10 @@ public class Board {
 	}
 
 	private void setBoatsInBoard() throws SinkException {
-		int row, column;
-
-		for (Boat boat : this.boats) {
-			for (int i = 0; i < boat.getSize(); i++) {
-				row = boat.getRow() - i * boat.getDirection()[1];
-				column = boat.getColumn() - i * boat.getDirection()[0];
-
-				if (this.blocks[row][column].getType() != Constants.WATER) {
-					throw new SinkException("Boat collision while putting them on the board");
-				}
-
-				this.blocks[row][column] = new BoardBlock(boat.getType());
+		for (int i = 0; i < this.boats.size(); i++) {
+			for (BoatUnit unit : this.boats.get(i).getUnits()) {
+				this.blocks[unit.getRow()][unit.getColumn()] = new BoardBlock(unit.getType());
+				this.blocks[unit.getRow()][unit.getColumn()].setBoatNumber(i);
 			}
 		}
 	}
@@ -122,6 +114,18 @@ public class Board {
 	}
 
 	public boolean isPossibleToPlay() {
+		int i = 0;
+
+		while (i < this.boats.size()) {
+			if (this.boats.get(i).isSank()) {
+				this.boats.remove(i--);
+				// If we encounter a boat that is sunk, we maintain the position to check the next boat
+				// since the ArrayList "shifts left"
+			}
+
+			i++;
+		}
+
 		return !this.boats.isEmpty();
 	}
 }

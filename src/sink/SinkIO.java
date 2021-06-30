@@ -115,14 +115,14 @@ public final class SinkIO {
 	}
 
 	private static boolean isValidBoat(Boat boat, int boardSize) {
-		int[] dir = boat.getDirection();
+		int[] dir = boat.getDirectionVector();
 		int columnVector = dir[0] * boat.getSize() - 1;
 		int rowVector = dir[1] * boat.getSize() - 1;
 
-		return (boat.getRow() - rowVector) >= 0 &&
-			(boat.getRow() - rowVector) <= boardSize &&
-			(boat.getColumn() - columnVector) >= 0 &&
-			(boat.getColumn() - columnVector) <= boardSize;
+		return (boat.getHeadRow() - rowVector) >= 0 &&
+			(boat.getHeadRow() - rowVector) <= boardSize &&
+			(boat.getHeadColumn() - columnVector) >= 0 &&
+			(boat.getHeadColumn() - columnVector) <= boardSize;
 	}
 
 	private static Game parseInput(File file) throws SinkException {
@@ -164,9 +164,9 @@ public final class SinkIO {
 		StringBuilder out = new StringBuilder();
 
 		for (Boat boat : boats) {
-			out.append(boat.getRow() + 1).append(" ")
-			   .append((char) (boat.getColumn() + 'A')).append(" ")
-			   .append(boat.getDirectionStringFromVector(boat.getDirection()))
+			out.append(boat.getHeadRow() + 1).append(" ")
+			   .append((char) (boat.getHeadColumn() + 'A')).append(" ")
+			   .append(boat.getDirectionStringFromVector(boat.getDirectionVector()))
 			   .append("\n");
 		}
 

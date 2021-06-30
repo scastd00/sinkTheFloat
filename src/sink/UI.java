@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
-
 public class UI {
 	private static final Logger logger = LogManager.getLogger(UI.class);
 	private Game game;

@@ -8,19 +8,21 @@ import java.util.Arrays;
 
 public class Boat {
 	private static final Logger logger = LogManager.getLogger(Boat.class);
-
+	private final BoatUnit[] units;
 	private int type;
-	private int row;
-	private int column;
+	private int headRow;
+	private int headColumn;
 	private int size;
-	private int[] direction;
+	private int[] directionVector;
 
-	public Boat(int type, int row, int column, int size, int[] direction) {
+	public Boat(int type, int headRow, int headColumn, int size, int[] directionVector) {
 		this.type = type;
-		this.row = row;
-		this.column = column;
+		this.headRow = headRow;
+		this.headColumn = headColumn;
 		this.size = size;
-		this.direction = direction;
+		this.directionVector = directionVector;
+		this.units = new BoatUnit[size];
+		this.fillUnits();
 	}
 
 	public Boat() {
@@ -39,20 +41,24 @@ public class Boat {
 		this.type = type;
 	}
 
-	public int getRow() {
-		return this.row;
+	public BoatUnit[] getUnits() {
+		return this.units;
 	}
 
-	public void setRow(int row) {
-		this.row = row;
+	public int getHeadRow() {
+		return this.headRow;
 	}
 
-	public int getColumn() {
-		return this.column;
+	public void setHeadRow(int headRow) {
+		this.headRow = headRow;
 	}
 
-	public void setColumn(int column) {
-		this.column = column;
+	public int getHeadColumn() {
+		return this.headColumn;
+	}
+
+	public void setHeadColumn(int headColumn) {
+		this.headColumn = headColumn;
 	}
 
 	public int getSize() {
@@ -63,12 +69,12 @@ public class Boat {
 		this.size = size;
 	}
 
-	public int[] getDirection() {
-		return this.direction;
+	public int[] getDirectionVector() {
+		return this.directionVector;
 	}
 
-	public void setDirection(int[] direction) {
-		this.direction = direction;
+	public void setDirectionVector(int[] directionVector) {
+		this.directionVector = directionVector;
 	}
 
 	public @NotNull String getDirectionStringFromVector(int[] direction) {
@@ -81,5 +87,31 @@ public class Boat {
 		}
 
 		return "R"; // The boat always has a direction
+	}
+
+	private void fillUnits() {
+		for (int i = 0; i < this.units.length; i++) {
+			this.units[i] = new BoatUnit(this.type, this.headRow - i * this.directionVector[1],
+				this.headColumn - i * this.directionVector[0]);
+		}
+	}
+
+	public boolean isSank() {
+		boolean sank = true;
+
+		for (BoatUnit unit : this.units) {
+			sank = sank && unit.isHit();
+		}
+
+		return sank;
+	}
+
+	public void hit(int row, int column) {
+		for (BoatUnit unit : this.units) {
+			if (unit.getRow() == row && unit.getColumn() == column) {
+				unit.setHit(true);
+				return;
+			}
+		}
 	}
 }
