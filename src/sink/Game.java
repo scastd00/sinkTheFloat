@@ -3,8 +3,6 @@ package sink;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 	private Player[] players;
@@ -51,19 +49,18 @@ public class Game {
 		}
 
 		// Take the other player's board to see if there is a boat or not
-		BoardBlock block = this.players[(player + 1) % 2].getBoard().getBlocks()[row][column];
+		Board opponentBoard = this.players[(player + 1) % 2].getBoard();
+		BoardBlock opponentBlock = opponentBoard.getBlock(row, column);
 
-		if (block.getType() == Constants.WATER) {
-			this.players[player].getAttemptingBoard().getBlocks()[row][column].water();
+		Board playerAttemptingBoard = this.players[player].getAttemptingBoard();
+
+		if (opponentBlock.getType() == Constants.WATER) {
+			playerAttemptingBoard.getBlock(row, column).water();
 			this.players[player].getScore().reset();
 		} else {
-			this.players[player].getAttemptingBoard().getBlocks()[row][column].hit();
-			this.players[(player + 1) % 2].getBoard()
-			                              .getBoats()
-			                              .get(block.getBoatNumber())
-			                              .hit(row, column);
+			playerAttemptingBoard.getBlock(row, column).hit();
+			opponentBoard.hitBlock(row, column);
 			this.players[player].getScore().increment(Constants.DEFAULT_SCORE);
-			block.hit();
 		}
 	}
 

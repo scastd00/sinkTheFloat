@@ -44,6 +44,10 @@ public class Board {
 		return this.blocks;
 	}
 
+	public BoardBlock getBlock(int row, int column) {
+		return this.blocks[row][column];
+	}
+
 	public void setBlocks(BoardBlock[][] blocks) throws SinkException {
 		if (blocks == null) {
 			throw new SinkException("Null table");
@@ -77,13 +81,40 @@ public class Board {
 		}
 	}
 
-	private void setBoatsInBoard() throws SinkException {
+	private void setBoatsInBoard() {
 		for (int i = 0; i < this.boats.size(); i++) {
 			for (BoatUnit unit : this.boats.get(i).getUnits()) {
 				this.blocks[unit.getRow()][unit.getColumn()] = new BoardBlock(unit.getType());
 				this.blocks[unit.getRow()][unit.getColumn()].setBoatNumber(i);
 			}
 		}
+	}
+
+	/**
+	 * hello
+	 *
+	 * @param row
+	 * @param column
+	 */
+	public void hitBlock(int row, int column) {
+		this.getBlock(row, column).hit();
+		this.boats.get(this.getBlock(row, column).getBoatNumber()).hit(row, column);
+	}
+
+	public boolean isPossibleToPlay() {
+		int i = 0;
+
+		while (i < this.boats.size()) {
+			if (this.boats.get(i).isSank()) {
+				this.boats.remove(i--);
+				// If we encounter a boat that is sunk, we maintain the position to check the next boat
+				// since the ArrayList "shifts left"
+			}
+
+			i++;
+		}
+
+		return !this.boats.isEmpty();
 	}
 
 	@Override
@@ -111,21 +142,5 @@ public class Board {
 		}
 
 		return out.toString();
-	}
-
-	public boolean isPossibleToPlay() {
-		int i = 0;
-
-		while (i < this.boats.size()) {
-			if (this.boats.get(i).isSank()) {
-				this.boats.remove(i--);
-				// If we encounter a boat that is sunk, we maintain the position to check the next boat
-				// since the ArrayList "shifts left"
-			}
-
-			i++;
-		}
-
-		return !this.boats.isEmpty();
 	}
 }

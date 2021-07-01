@@ -13,9 +13,8 @@ public class UI {
 	}
 
 	public UI(int boardSize) throws SinkException {
-		this.game = new Game(
-			new Player[] {SinkIO.createPlayer(1, boardSize), SinkIO.createPlayer(2, boardSize)},
-			new SinkTime()
+		this.game = new Game(new Player[] {SinkIO.createPlayer(1, boardSize),
+				SinkIO.createPlayer(2, boardSize)}, new SinkTime()
 		);
 	}
 
@@ -27,32 +26,36 @@ public class UI {
 		this.game = game;
 	}
 
-	public String printBoard() {
-		return this.game.getPlayers()[0].toString() + "\n\n\n" + this.game.getPlayers()[1].toString();
-	}
-
-	public void shoot(int player) throws SinkException {
-		logger.info("Player {}: Introduce the row to shot", player);
-		int row = Integer.parseInt(Keyboard.read()) - 1;
-
-		logger.info("Player {}: Introduce the column to shot", player);
-		int column = Keyboard.read().toUpperCase().trim().charAt(0) - 'A';
-
+	public void shoot(int player, int row, int column) throws SinkException {
 		this.game.shoot(player - 1, row, column);
 	}
 
 	public void start() {
 		logger.info("Starting time: {}", this.game.getTime());
+		int row, column;
 
 		while (this.game.isPossibleToPlay()) {
 			logger.trace("\n\n");
 			logger.info(this.game);
 
 			try {
-				this.shoot(1);
-				this.shoot(2);
-			} catch (SinkException e) {
-				logger.warn(e.getMessage());
+				logger.info("Player {}: Introduce the row to shot", 1);
+				row = Integer.parseInt(Keyboard.read()) - 1;
+
+				logger.info("Player {}: Introduce the letter of the column to shot", 1);
+				column = Keyboard.read().trim().toUpperCase().charAt(0) - 'A';
+				this.shoot(1, row, column);
+
+				logger.info("Player {}: Introduce the row to shot", 2);
+				row = Integer.parseInt(Keyboard.read()) - 1;
+
+				logger.info("Player {}: Introduce the letter of the column to shot", 2);
+				column = Keyboard.read().trim().toUpperCase().charAt(0) - 'A';
+				this.shoot(2, row, column);
+			} catch (SinkException e1) {
+				logger.warn(e1.getMessage());
+			} catch (NumberFormatException e2) {
+				logger.warn("Please introduce a valid input");
 			}
 		}
 	}

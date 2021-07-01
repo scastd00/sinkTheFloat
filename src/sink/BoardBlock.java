@@ -32,6 +32,14 @@ public class BoardBlock {
 		this.boatNumber = boatNumber;
 	}
 
+	public void hit() {
+		this.type = Constants.HIT;
+	}
+
+	public void water() {
+		this.type = Constants.WATER;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
@@ -70,13 +78,5 @@ public class BoardBlock {
 		}
 
 		return out.append(Constants.RESET).toString();
-	}
-
-	public void hit() {
-		this.type = Constants.HIT;
-	}
-
-	public void water() {
-		this.type = Constants.WATER;
 	}
 }
