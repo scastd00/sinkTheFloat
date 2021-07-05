@@ -2,6 +2,7 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
@@ -13,6 +14,7 @@ public class Game {
 		this.setTime(sinkTime);
 	}
 
+	@Contract(pure = true)
 	public Game() {
 		this.players = null;
 		this.sinkTime = null;
@@ -68,8 +70,13 @@ public class Game {
 		return this.players[0].isPossibleToPlay() && this.players[1].isPossibleToPlay();
 	}
 
+	@Contract(pure = true)
 	private boolean outOfBoundsPosition(int value) {
 		return value < 0 || value > Constants.getBoardSize();
+	}
+
+	public String toLogString() {
+		return this.players[0].toLogString() + "\n\n" + this.players[1].toLogString();
 	}
 
 	@Override

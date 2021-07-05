@@ -2,12 +2,14 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class UI {
 	private static final Logger logger = LogManager.getLogger(UI.class);
 	private Game game;
 
+	@Contract(pure = true)
 	public UI(@NotNull Game game) {
 		this.game = game;
 	}
@@ -36,7 +38,7 @@ public class UI {
 
 		while (this.game.isPossibleToPlay()) {
 			logger.trace("\n\n");
-			logger.info(this.game);
+			this.logFormattedBoardToFileAndConsole();
 
 			try {
 				logger.info("Player {}: Introduce the row to shot", 1);
@@ -58,5 +60,11 @@ public class UI {
 				logger.warn("Please introduce a valid input");
 			}
 		}
+	}
+
+	@Contract(pure = true)
+	private void logFormattedBoardToFileAndConsole() {
+		logger.trace(this.game);
+		logger.debug(this.game.toLogString());
 	}
 }

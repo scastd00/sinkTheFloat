@@ -2,6 +2,7 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Calendar;
 
@@ -12,6 +13,7 @@ public class SinkTime {
 	private final int second;
 	private final int millisecond;
 
+	@Contract(pure = true)
 	public SinkTime(int hour, int minute, int second, int millisecond) {
 		this.hour = hour;
 		this.minute = minute;
@@ -21,7 +23,7 @@ public class SinkTime {
 
 	public SinkTime() {
 		this(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE),
-			Calendar.getInstance().get(Calendar.SECOND), Calendar.getInstance().get(Calendar.MILLISECOND));
+				Calendar.getInstance().get(Calendar.SECOND), Calendar.getInstance().get(Calendar.MILLISECOND));
 	}
 
 	@Override

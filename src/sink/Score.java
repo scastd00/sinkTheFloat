@@ -1,15 +1,14 @@
 package sink;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 public class Score {
-	private static final Logger logger = LogManager.getLogger(Score.class);
 	private int points;
 	private int sankBoats;
 	private float multiplier;
 	private int streak;
 
+	@Contract(pure = true)
 	public Score(int points, int sankBoats) {
 		this.points = points;
 		this.sankBoats = sankBoats;
@@ -17,6 +16,7 @@ public class Score {
 		this.streak = 0;
 	}
 
+	@Contract(pure = true)
 	public Score() {
 		this.points = 0;
 		this.sankBoats = 0;
@@ -70,7 +70,7 @@ public class Score {
 	@Override
 	public String toString() {
 		return "|  Score: " + this.points +
-			" points  |  Multiplier: x" + this.multiplier +
-			"  |  Streak: " + this.streak + "  |";
+				" points  |  Multiplier: x" + this.multiplier +
+				"  |  Streak: " + this.streak + "  |";
 	}
 }

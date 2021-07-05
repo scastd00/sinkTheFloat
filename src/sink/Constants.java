@@ -1,9 +1,12 @@
 package sink;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public final class Constants {
+	@Contract(value = " -> fail", pure = true)
 	private Constants() {
 		throw new UnsupportedOperationException("Constants class");
 	}
@@ -27,12 +30,19 @@ public final class Constants {
 
 	private static int boardSize;
 
+
+	@Contract(pure = true)
 	public static int getBoardSize() {
 		return boardSize;
 	}
 
 	public static void setBoardSize(int boardSize) {
 		Constants.boardSize = boardSize;
+	}
+
+	@Contract(pure = true)
+	public static boolean badBoatType(int type) {
+		return type < Constants.AIRCRAFT_CARRIER || type > Constants.NO_BOAT;
 	}
 
 	public static final int MAX_SIZE = 20;

@@ -2,16 +2,20 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class BoardBlock {
 	private static final Logger logger = LogManager.getLogger(BoardBlock.class);
 	private int type;
 	private int boatNumber = 0;
 
+	@Contract(pure = true)
 	public BoardBlock(int type) {
 		this.type = type;
 	}
 
+	@Contract(pure = true)
 	public BoardBlock() {
 		this(Constants.NOTHING);
 	}
@@ -41,6 +45,7 @@ public class BoardBlock {
 	}
 
 	@Override
+	@NotNull
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 

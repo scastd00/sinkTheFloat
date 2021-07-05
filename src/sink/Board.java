@@ -1,5 +1,7 @@
 package sink;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,12 +92,6 @@ public class Board {
 		}
 	}
 
-	/**
-	 * hello
-	 *
-	 * @param row
-	 * @param column
-	 */
 	public void hitBlock(int row, int column) {
 		this.getBlock(row, column).hit();
 		this.boats.get(this.getBlock(row, column).getBoatNumber()).hit(row, column);
@@ -117,7 +113,25 @@ public class Board {
 		return !this.boats.isEmpty();
 	}
 
+	public String toLogString() {
+		StringBuilder sb = new StringBuilder();
+
+		for (BoardBlock[] block : this.blocks) {
+			for (BoardBlock boardBlock : block) {
+				if (boardBlock.getType() == Constants.NOTHING)
+					sb.append('-');
+				else
+					sb.append(boardBlock.getType());
+			}
+
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
 	@Override
+	@NotNull
 	public String toString() {
 		StringBuilder out = new StringBuilder("    ");
 

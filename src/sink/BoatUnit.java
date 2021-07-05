@@ -2,7 +2,6 @@ package sink;
 
 import org.jetbrains.annotations.Contract;
 
-// Todo: Hacer comprobaciones de coordenadas
 public class BoatUnit {
 	private boolean hit = false;
 	private int type;
@@ -34,6 +33,10 @@ public class BoatUnit {
 	}
 
 	public void setType(int type) {
+		if (Constants.badBoatType(type)) {
+			throw new IllegalArgumentException("Bad boat type");
+		}
+
 		this.type = type;
 	}
 

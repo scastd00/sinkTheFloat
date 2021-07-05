@@ -1,10 +1,8 @@
 package sink;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 
 public class Player {
-	private static final Logger logger = LogManager.getLogger(Player.class);
 
 	private String name;
 	private Score score;
@@ -18,6 +16,7 @@ public class Player {
 		this.attemptingBoard = new Board(board.getSize(), Constants.NOTHING);
 	}
 
+	@Contract(pure = true)
 	public Player() {
 		this.name = null;
 		this.score = null;
@@ -84,13 +83,18 @@ public class Player {
 		return this.name.hashCode() + this.score.hashCode() + this.board.hashCode() + Constants.HASH_MAGIC;
 	}
 
+	public boolean isPossibleToPlay() {
+		return this.board.isPossibleToPlay();
+	}
+
+	public String toLogString() {
+		return this.name + "  " + this.score + "\n" + this.board.toLogString() + "\n\nAttempting board\n\n" +
+				this.attemptingBoard.toLogString();
+	}
+
 	@Override
 	public String toString() {
 		return "Name: " + this.name + "  " + this.score.toString() + "\n\n" + this.board.toString() +
-			"\n\n" + this.attemptingBoard.toString();
-	}
-
-	public boolean isPossibleToPlay() {
-		return this.board.isPossibleToPlay();
+				"\n\n" + this.attemptingBoard.toString();
 	}
 }

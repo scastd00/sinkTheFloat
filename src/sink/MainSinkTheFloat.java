@@ -15,7 +15,7 @@ public class MainSinkTheFloat {
 //			ui.start();
 
 			Game game = SinkIO.createGameFromFile(
-				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/io1.txt");
+					"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/io1.txt");
 
 			game.setTime(new SinkTime());
 
@@ -23,7 +23,7 @@ public class MainSinkTheFloat {
 			ui.start();
 
 			SinkIO.writeGameToFile(game,
-				"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");
+					"/home/samuel/IdeaProjects/IntelliJ/myProjects/java/sinkTheFloat/inputs/output.txt");
 
 		} catch (SinkException e) {
 			logger.error(e.getMessage());

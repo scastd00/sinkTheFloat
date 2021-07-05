@@ -2,6 +2,7 @@ package sink;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -15,11 +16,12 @@ public final class SinkIO {
 
 	private static final Logger logger = LogManager.getLogger(SinkIO.class);
 
+	@Contract(value = " -> fail", pure = true)
 	private SinkIO() {
 		throw new UnsupportedOperationException("Utility class");
 	}
 
-	public static Game createGameFromFile(@NotNull String filename) throws SinkException {
+	public static @NotNull Game createGameFromFile(@NotNull String filename) throws SinkException {
 		return parseInput(new File(filename));
 	}
 
@@ -41,7 +43,7 @@ public final class SinkIO {
 
 	}
 
-	public static Player createPlayer(int playerNumber, int boardSize) {
+	public static @NotNull Player createPlayer(int playerNumber, int boardSize) {
 		logger.debug("Creating player {}", playerNumber);
 		logger.trace("Introduce the name of the player {}", playerNumber);
 
@@ -58,7 +60,7 @@ public final class SinkIO {
 		return player;
 	}
 
-	private static Board createBoard(int playerNumber, int boardSize) throws SinkException {
+	private static @NotNull Board createBoard(int playerNumber, int boardSize) throws SinkException {
 		logger.debug("Creating board for player {}", playerNumber);
 
 		Board board = new Board(boardSize, Constants.WATER);
@@ -67,10 +69,10 @@ public final class SinkIO {
 		return board;
 	}
 
-	private static List<Boat> readBoats(int playerNumber, int boardSize) throws SinkException {
+	private static @NotNull List<Boat> readBoats(int playerNumber, int boardSize) throws SinkException {
 		logger.info("Player {} insert the coordinates and direction of the boats", playerNumber);
 		logger.info("Structure of the input: Row: 1 - {}  Column: A - {}  Direction: {U D L R}",
-			boardSize, (char) ('A' + boardSize - 1));
+				boardSize, (char) ('A' + boardSize - 1));
 
 		List<Boat> boatList = new ArrayList<>(10);
 
@@ -101,7 +103,7 @@ public final class SinkIO {
 		return boatList;
 	}
 
-	private static Boat parseBoat(String s, int boatSize, int type) {
+	private static @NotNull Boat parseBoat(@NotNull String s, int boatSize, int type) {
 		String[] tokens = s.toUpperCase().split(" ");
 		int row = Integer.parseInt(tokens[0]) - 1;
 		int column = tokens[1].charAt(0) - 'A';
@@ -114,18 +116,18 @@ public final class SinkIO {
 		return Constants.DIRECTIONS.containsKey(direction) ? Constants.DIRECTIONS.get(direction) : new int[0];
 	}
 
-	private static boolean isValidBoat(Boat boat, int boardSize) {
+	private static boolean isValidBoat(@NotNull Boat boat, int boardSize) {
 		int[] dir = boat.getDirectionVector();
 		int columnVector = dir[0] * boat.getSize() - 1;
 		int rowVector = dir[1] * boat.getSize() - 1;
 
 		return (boat.getHeadRow() - rowVector) >= 0 &&
-			(boat.getHeadRow() - rowVector) <= boardSize &&
-			(boat.getHeadColumn() - columnVector) >= 0 &&
-			(boat.getHeadColumn() - columnVector) <= boardSize;
+				(boat.getHeadRow() - rowVector) <= boardSize &&
+				(boat.getHeadColumn() - columnVector) >= 0 &&
+				(boat.getHeadColumn() - columnVector) <= boardSize;
 	}
 
-	private static Game parseInput(File file) throws SinkException {
+	private static @NotNull Game parseInput(File file) throws SinkException {
 		Game game = new Game();
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
@@ -160,14 +162,14 @@ public final class SinkIO {
 		return game;
 	}
 
-	private static String getBoatsFormatted(List<Boat> boats) {
+	private static @NotNull String getBoatsFormatted(@NotNull List<Boat> boats) {
 		StringBuilder out = new StringBuilder();
 
 		for (Boat boat : boats) {
 			out.append(boat.getHeadRow() + 1).append(" ")
-			   .append((char) (boat.getHeadColumn() + 'A')).append(" ")
-			   .append(boat.getDirectionStringFromVector(boat.getDirectionVector()))
-			   .append("\n");
+					.append((char) (boat.getHeadColumn() + 'A')).append(" ")
+					.append(boat.getDirectionStringFromVector(boat.getDirectionVector()))
+					.append("\n");
 		}
 
 		out.replace(out.length() - 1, out.length(), ""); // Removing the last \n of the output String
